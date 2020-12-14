@@ -10,6 +10,99 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//manager questions
+
+inquirer.prompt([
+    {
+        type: 'input',
+        message: "What is your Manager's name?",
+        name: 'name'
+    },
+    {
+        type: 'input',
+        message: "What is your Manager's ID?",
+        name: 'ID'
+    },
+    {
+        type: 'input',
+        message: "What is your Manager's Email?",
+        name: 'email'
+    },
+    {
+        type: 'input',
+        message: "What is your Manager's office number?",
+        name: 'office'
+    },
+    {
+        type: 'list',
+        message: "Which type of team member would you like to add?",
+        choices: ['Engineer', 'Intern', "I don't want to add anymoe team members!"],
+        name: 'team'
+    }
+]);
+
+//engineer questions
+
+inquirer.prompt([
+    {
+        type: 'input',
+        message: "What is your Engineer's name?",
+        name: 'name'
+    },
+    {
+        type: 'input',
+        message: "What is your Engineer's ID?",
+        name: 'id'
+    },
+    {
+        type: 'input',
+        message: "What is your Engineer's Email?",
+        name: 'email'
+    },
+    {
+        type: 'input',
+        message: "What is your Engineer's Github username?",
+        name: 'username'
+    },
+    {
+        type: 'list',
+        message: "Which type of team member would you like to add?",
+        choices: ['Engineer', 'Intern', "I don't want to add anymoe team members!"],
+        name: 'team'
+    }
+]);
+
+//Intern questions
+
+inquirer.prompt([
+    {
+        type: 'input',
+        message: "What is your Intern's name?",
+        name: 'name'
+    },
+    {
+        type: 'input',
+        message: "What is your Intern's ID?",
+        name: 'id'
+    },
+    {
+        type: 'input',
+        message: "What is your Intern's Email?",
+        name: 'email'
+    },
+    {
+        type: 'input',
+        message: "What is your Intern's school?",
+        name: 'school'
+    },
+    {
+        type: 'list',
+        message: "Which type of team member would you like to add?",
+        choices: ['Engineer', 'Intern', "I don't want to add anymoe team members!"],
+        name: 'team'
+    }
+]);
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
