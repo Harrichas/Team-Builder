@@ -10,98 +10,73 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-//manager questions
+const employees = []
 
-inquirer.prompt([
-    {
-        type: 'input',
-        message: "What is your Manager's name?",
-        name: 'name'
-    },
-    {
-        type: 'input',
-        message: "What is your Manager's ID?",
-        name: 'ID'
-    },
-    {
-        type: 'input',
-        message: "What is your Manager's Email?",
-        name: 'email'
-    },
-    {
-        type: 'input',
-        message: "What is your Manager's office number?",
-        name: 'office'
-    },
-    {
-        type: 'list',
-        message: "Which type of team member would you like to add?",
-        choices: ['Engineer', 'Intern', "I don't want to add anymoe team members!"],
-        name: 'team'
+
+function question(role) {
+    if (!role) {
+        role = "Manager"
+    }  
+
+    if (role == "Manager") {
+        currentMessage = "What is your office number?"
+    } else if (role === "Engineer") {
+        currentMessage = "What is your GitHub username?"
+    } else if (role === "Intern") {
+        currentMessage = "What is their school?"
     }
-]);
 
-//engineer questions
+      return inquirer.prompt([
+            {
+                type: 'input',
+                message: `What is your ${role} name?`,
+                name: 'name'
+            },
+            {
+                type: 'input',
+                message: `What is your ${role} ID?`,
+                name: 'id'
+            },
+            {
+                type: 'input',
+                message: `What is your ${role} Email?`,
+                name: 'email'
+            },
+            {
+                type: 'input',
+                message: currentMessage,
+                name: "uniqueQuestion"
+            },
+            {
+                type: 'list',
+                message: "Which type of team member would you like to add?",
+                choices: ['Manager', 'Engineer', 'Intern', "I don't want to add anymoe team members!"],
+                name: 'team'
+            }
+        ])
+        .then(function(answers) {
+           
+            let employee;
 
-inquirer.prompt([
-    {
-        type: 'input',
-        message: "What is your Engineer's name?",
-        name: 'name'
-    },
-    {
-        type: 'input',
-        message: "What is your Engineer's ID?",
-        name: 'id'
-    },
-    {
-        type: 'input',
-        message: "What is your Engineer's Email?",
-        name: 'email'
-    },
-    {
-        type: 'input',
-        message: "What is your Engineer's Github username?",
-        name: 'username'
-    },
-    {
-        type: 'list',
-        message: "Which type of team member would you like to add?",
-        choices: ['Engineer', 'Intern', "I don't want to add anymoe team members!"],
-        name: 'team'
+            if (role == "Manager") {
+                employee = new Manager(answers.name, answers.id, answers.email, answers.uniqueQuestion)
+            } else if (role === "Engineer") {
+                employee = new Engineer(answers.name, answers.id, answers.email, answers.uniqueQuestion)
+            } else if (role === "Intern") {
+                employee = new Intern(answers.name, answers.id, answers.email, answers.uniqueQuestion)
+            }
+            employees.push(employee)
+            if(answers.team === "I don't want to add anymoe team members!") {
+                //print HTML/ render
+                return
+            } else {
+                return question(answers.team)
+            }
+        })
     }
-]);
+    question();
 
-//Intern questions
 
-inquirer.prompt([
-    {
-        type: 'input',
-        message: "What is your Intern's name?",
-        name: 'name'
-    },
-    {
-        type: 'input',
-        message: "What is your Intern's ID?",
-        name: 'id'
-    },
-    {
-        type: 'input',
-        message: "What is your Intern's Email?",
-        name: 'email'
-    },
-    {
-        type: 'input',
-        message: "What is your Intern's school?",
-        name: 'school'
-    },
-    {
-        type: 'list',
-        message: "Which type of team member would you like to add?",
-        choices: ['Engineer', 'Intern', "I don't want to add anymoe team members!"],
-        name: 'team'
-    }
-]);
 
 
 // Write code to use inquirer to gather information about the development team members,
