@@ -30,22 +30,48 @@ function question(role) {
             {
                 type: 'input',
                 message: `What is your ${role} name?`,
-                name: 'name'
+                name: 'name',
+                validate: (answer) => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Enter at least one character.";
+                }
             },
             {
                 type: 'input',
                 message: `What is your ${role} ID?`,
-                name: 'id'
+                name: 'id',
+                validate: (answer) => {
+                    const pass = answer.match(/^[0-9]\d*$/);
+                    if (pass) {
+                        return true;
+                    }
+                    return "Enter a valid ID number.";
+                }
             },
             {
                 type: 'input',
                 message: `What is your ${role} Email?`,
-                name: 'email'
+                name: 'email',
+                validate: (answer) => {
+                    const pass = answer.match(/\S+@\S+\.\S+/);
+                    if (pass) {
+                        return true;
+                    }
+                    return "Enter a valid Email address.";
+                }
             },
             {
                 type: 'input',
                 message: currentMessage,
-                name: "uniqueQuestion"
+                name: "uniqueQuestion",
+                validate: (answer) => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Enter at least one character.";
+                }
             },
             {
                 type: 'list',
@@ -67,14 +93,21 @@ function question(role) {
             }
             employees.push(employee)
             if(answers.team === "I don't want to add anymoe team members!") {
-                //print HTML/ render
+                createOutput()
                 return
             } else {
                 return question(answers.team)
             }
         })
     }
-    question();
+function createOutput() {
+    if (!fs.existsSync(OUTPUT_DIR, "output")) {
+        fs.mkdirSync(OUTPUT_DIR);
+    }
+    fs.writeFileSync(outputPath, render(employees), "utf-8");
+};
+question();
+
 
 
 
