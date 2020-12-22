@@ -6,6 +6,7 @@ This project is to help create teams of Manager's, engineer's, and Interns's bas
 
 ## Usage
 
+![video](./images/teamBuilder.gif)
 ![Screenshot1](./images/Node.png)
 ![Screenshot1](./images/Prompt.png)
 ![Screenshot1](./images/Team-builder-test.png)
