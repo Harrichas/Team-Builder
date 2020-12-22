@@ -18,7 +18,7 @@ function question(role) {
         role = "Manager"
     }  
 
-    if (role == "Manager") {
+    if (role === "Manager") {
         currentMessage = "What is your office number?"
     } else if (role === "Engineer") {
         currentMessage = "What is your GitHub username?"
@@ -76,7 +76,7 @@ function question(role) {
             {
                 type: 'list',
                 message: "Which type of team member would you like to add?",
-                choices: ['Manager', 'Engineer', 'Intern', "I don't want to add anymoe team members!"],
+                choices: ['Manager', 'Engineer', 'Intern', "I don't want to add anymore team members!"],
                 name: 'team'
             }
         ])
@@ -84,7 +84,7 @@ function question(role) {
            
             let employee;
 
-            if (role == "Manager") {
+            if (role === "Manager") {
                 employee = new Manager(answers.name, answers.id, answers.email, answers.uniqueQuestion)
             } else if (role === "Engineer") {
                 employee = new Engineer(answers.name, answers.id, answers.email, answers.uniqueQuestion)
@@ -92,7 +92,7 @@ function question(role) {
                 employee = new Intern(answers.name, answers.id, answers.email, answers.uniqueQuestion)
             }
             employees.push(employee)
-            if(answers.team === "I don't want to add anymoe team members!") {
+            if(answers.team === "I don't want to add anymore team members!") {
                 createOutput()
                 return
             } else {
